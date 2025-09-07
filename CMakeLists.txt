@@ -6,7 +6,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(VulkanTest main.cpp
         debug.cpp
-        debug.hpp)
+        debug.hpp
+        framerate.cpp
+        framerate.hpp)
 
 target_compile_options(VulkanTest PRIVATE -O2)
 
