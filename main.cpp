@@ -21,6 +21,7 @@ public:
     {
         initWindow();
         initVulkan();
+        Debug::disableOutput(true);
         mainLoop();
         cleanup();
     }
@@ -88,7 +89,7 @@ private:
         glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
         window = glfwCreateWindow(WIDTH, HEIGHT, "Vulkan Triangle", NULL, NULL);
-        glfwSetWindowUserPointer(window, &step);
+        glfwSetWindowUserPointer(window, this);
         glfwSetFramebufferSizeCallback(window, framebufferResizeCallback);
     }
 
@@ -267,7 +268,7 @@ private:
             }
         }
 
-        // we simply settle on the first one if preffered is not available
+        // we simply settle on the first one if prefered is not available
         return availableFormats[0];
     }
 
@@ -956,9 +957,9 @@ private:
 
     void createSyncObjects()
     {
-        imageAvailableSemaphores.resize(swapChainImageViews.size());
-        renderFinishedSemaphores.resize(swapChainImageViews.size());
-        inFlightFences.resize(swapChainImageViews.size());
+        imageAvailableSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
+        renderFinishedSemaphores.resize(MAX_FRAMES_IN_FLIGHT);
+        inFlightFences.resize(MAX_FRAMES_IN_FLIGHT);
 
         VkSemaphoreCreateInfo semaphoreInfo{};
         semaphoreInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
