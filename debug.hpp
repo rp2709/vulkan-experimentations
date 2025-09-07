@@ -8,10 +8,12 @@
 
 class Debug
 {
+
+    static inline bool print = true;
     public:
 
     static void log(std::string_view message, bool flush = false);
-
+    static bool disableOutput(bool value);
     template<class... Args>
     static void format(std::format_string<Args...> format_string, Args&&... args)
     {

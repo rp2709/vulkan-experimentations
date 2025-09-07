@@ -3,6 +3,7 @@
 
 void Debug::log(const std::string_view message, const bool flush)
 {
+    if (not print)return;
     *os << std::setw(indent_size * trace.size())
         << std::setfill(indent_char) << ""
         << message << "\n";
@@ -34,5 +35,13 @@ Debug::Step::~Step()
     trace.pop();
     format("Step {} finished in {}", name, duration);
 }
+
+bool Debug::disableOutput(bool value)
+{
+    bool old = print;
+    print = not value;
+    return old;
+}
+
 
 
